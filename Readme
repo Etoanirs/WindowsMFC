@@ -1,0 +1,3 @@
+2020年3月31日13:27:43
+  1. 在VS中创建MFC仓库，publish 到 remote 为WindowsMFC，这样可以自动生成.ignore .attribute
+  
