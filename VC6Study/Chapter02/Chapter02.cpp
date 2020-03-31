@@ -3,14 +3,35 @@
 	//	#include <SDKDDKVer.h>
 	//#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 	// Windows Header Files
-	#include <windows.h>
+	#include<windows.h>
+	//切记！当调用<windows.h>时，不要调用MFC！（Afx.h)
 	// C RunTime Header Files
 	//#include <stdlib.h>
 	//#include <malloc.h>
 	//#include <memory.h>
-	#include <tchar.h>
+	//#include <tchar.h>
+/*
+	在UNICODE中
+	#define __TEXT(quote)	L##quote
+	其他
+	#define __TEXT(quote)	quote
+	#define TEXT(quote)		__TEXT(quote)
+	所有的字符串常量都用TEXT("String")是非常合适的
+*/
 //#include "Chapter02.h"
 	//#include "Resource.h"
+#if 0
+int APIENTRY WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstacne,
+	LPSTR lpCmdLine,
+	int nCmdShow
+	)
+{
+	MessageBox(NULL,TEXT("Information"), TEXT("Caption"), MB_ABORTRETRYIGNORE | MB_DEFBUTTON2 | MB_ICONWARNING);
+	return 0;
+}
+#else
 
 int APIENTRY WinMain(
 	HINSTANCE hInstance,
@@ -19,9 +40,17 @@ int APIENTRY WinMain(
 	int nCmdShow
 	)
 {
-	MessageBox(NULL, _T("Information"), _T("Caption"), MB_ABORTRETRYIGNORE |MB_DEFBUTTON2 | MB_ICONWARNING);
+	int result = MessageBox(NULL, TEXT("这是对话框"), TEXT("你好"), MB_ICONINFORMATION | MB_YESNO);
+	switch (result)/*注意！使用Unicode应用TEXT包围字串*/
+	{
+	case IDYES:MessageBox(NULL, TEXT("您选择了YES"), TEXT("YES"), MB_OK); break;
+	case IDNO:MessageBox(NULL, TEXT("您选择了NO"), TEXT("NO"), MB_OK); break;
+	}
 	return 0;
 }
+#endif // 0
+
+
 
 
 
