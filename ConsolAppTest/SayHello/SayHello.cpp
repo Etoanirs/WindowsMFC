@@ -1,13 +1,36 @@
 // SayHello.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-
-int main()
+//#include <iostream>
+//
+//int main()
+//{
+//    std::cout << "Hello World!\n";
+//}
+#include <Windows.h>
+#include <stdio.h>
+BOOL CALLBACK EnumCodePagesProc(LPTSTR lpCodePageString)    //Winnls.h (include Windows.h)
 {
-    std::cout << "Hello World!\n";
-}
+    CPINFOEX info = { 0 };
+    //UINT cp = atoi(lpCodePageString);
+    UINT cp = _wtoi(lpCodePageString);
 
+    if (GetCPInfoEx(cp, 0, &info))
+    {
+        //SetConsoleOutputCP(info.CodePage);
+        wprintf(L"%s\n", info.CodePageName);        
+    }
+        
+    return TRUE;
+}
+int main(int argc, char const* argv[])
+{
+    //winnls.h (include Windows.h)
+    
+    EnumSystemCodePages(EnumCodePagesProc, CP_INSTALLED);    //CP_SUPPORTED  CP_INSTALLED
+
+    return 0;
+}
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 
